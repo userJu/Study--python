@@ -139,3 +139,238 @@ print('나는 {age}살이며, {color}색을 좋아해요' .format(age = 25, colo
 age = 25
 color="하늘"
 print(f'나는 {age}살이며, {color}색을 좋아해요.')
+
+
+# 탈출 문자
+# \n : 줄바꿈
+print('백문이 불여일견\n백견이 불여일타')
+# \' \" " 문장 안에서 따옴표 쓰기
+print("저는 \"임주현\" 입니다")
+# 역슬러시가 필요할때는 \\넣어주면 됨
+# \r : 커서를 맨 앞으로 이동
+print('Red Apple\rPine')
+# \b : 한 글자 삭제 
+print('Redd\b Apple')
+# \t : 탭
+print('red\tApple')
+
+
+
+
+# Quiz
+link = 'http://naver.com'
+aim = link.index('.')
+print(link[7:aim])
+link[:3] 
+len(link)
+link.count('e')
+
+print(link[7:aim] + str(len(link[7:aim])) +str(link.count('e')) + '!')
+
+
+my_str = link.replace("http://","")
+my_str = my_str[:my_str.index('.')]
+
+
+# 리스트 [] : 순서를 가지는 객체의 집합
+
+subway = [10,20,30]
+print(subway)
+subway=["유재석","조세호","박명수"]
+print(subway)
+
+# 조세호가 탄 칸은?
+print(subway.index('조세호'))
+
+# 뒤에 추가
+subway.append('뒤')
+print(subway)
+
+# 앞에 추가
+subway.insert(1,'위치설정')
+print(subway)
+
+# 뒤에서부터 빼기
+print(subway.pop())
+print(subway)
+
+# 같은 이름의 사람이 총 몇 명 있는지 확인하기
+subway.append('유재석')
+print(subway)
+print(subway.count('유재석'))
+
+# 정렬
+num_list = [5,2,4,3,1]
+num_list.sort()
+print(num_list)
+
+# 정렬 순서 뒤집기
+num_list.reverse()
+print(num_list)
+
+# 모두 지우기
+num_list.clear()
+print(num_list)
+
+# list는 다양한 자료형을 함께 사용할 수 있다
+
+num_list = [1,2,3,4,5]
+mix_list = ['조세호',20,True]
+print(mix_list)
+
+# 리스트 확장
+num_list.extend(mix_list)
+print(num_list)
+
+
+
+
+
+# 사전
+cabinet = {3:'유재석', "100":"김태호"}
+print(cabinet[3])
+print(cabinet["100"])
+
+print(cabinet.get(3))
+# 대괄호로 값을 가져올 때 값이 없는 경우 : 오류, 종료
+# get으로 가져올때는 none으로 출력 되고 다음 값을 읽는다
+
+# 기본값을 쓰고 싶을 때 
+print(cabinet.get(5, "기본값"))
+
+# 키 확인하는 법
+print(3 in cabinet)
+print(5 in cabinet)
+
+# 새로운 값 추가하기
+cabinet['C-20'] = "조세호"
+print(cabinet)
+# 만약 key가 진작 있다면 key의 value가 업데이트된다
+
+# 값 삭제하기
+del cabinet[3]
+print(cabinet)
+
+# key의 정보 출력
+print(cabinet.keys())
+
+# value의 정보 출력
+print(cabinet.values())
+
+#쌍으로 출력
+print(cabinet.items())
+
+#모든 값 지우기
+cabinet.clear()
+print(cabinet)
+
+
+
+
+# 튜플
+# 내용을 변경하거나 추가할 수는 없는데 속도가 list보다 빠름
+# 변경되지 않는 내용에 활용
+
+menu=('돈까스',"치즈까스") # 이렇게 작성
+print(menu[0])
+print(menu[1])
+
+name ="임주현"
+age = 25
+hobby="코딩"
+print(name, age, hobby)
+
+# 튜플 방식으로
+(name,age,hobby) = ("임주현", 25, "코딩")
+print(name, age, hobby)
+
+
+
+
+
+# 집합
+# 중복이 안되고, 순서가 없다
+my_set = {1,2,3,3,3}
+print(my_set) # {1,2,3}
+
+java ={"유재석", "김태호", "양세형"}
+python = set(["유재석", "박명수"])
+
+# 교집합
+print(java & python)
+print(java.intersection(python))
+
+# 합집합
+print( java | python)
+print(java.union(python))
+
+# 차집합
+print(java-python)
+print(java.difference(python))
+
+# python 할 줄 아는 사람이 늘어남
+python.add('김태호')
+print(python)
+
+# java를 까먹었다
+java.remove('김태호')
+print(java)
+
+
+
+
+
+# 자료구조의 변경
+menu = {'커피','우유','주스'} 
+print(menu,type(menu)) # {'주스', '커피', '우유'} <class 'set'>
+
+menu = list(menu)
+print(menu,type(menu)) # ['커피', '주스', '우유'] <class 'list'>
+
+menu = tuple(menu)
+print(menu, type(menu)) # ('주스', '우유', '커피') <class 'tuple'>
+
+menu = set(menu)
+print(menu, type(menu)) # {'주스', '커피', '우유'} <class 'set'>
+
+
+
+# shuffle / sample
+lists = [1,2,3,4,5]
+shuffle(lists)
+print(lists)
+print(sample(lists,1))
+# shuffle : 섞기, sample : list중에서 n개 무작위로 뽑기
+
+
+
+
+
+#Quiz
+users = range(1,21) # 1부터 21 직전까지 숫자 생성 type는 range
+users = list(users)
+shuffle(users)
+top4 = (sample(users,4))
+print("-- 당첨자 발표 -- \n 치킨 당첨자 : {0}\n 커피 당첨자 : {1}\n-- 축하합니다 --" .format(top4[0],top4[1:4]))
+
+
+
+
+
+
+
+
+
+# # if 
+# weather = input('오늘 날씨는 어때요?')
+weather= '비'
+if weather == '비' or weather =='눈': print('우산을 챙기세요')
+elif weather =="미세먼지" : print('마스크를 챙기세요')
+else : print('준비물은 필요 없어요')
+
+# temp = int(input('기온은 어때요?'))
+temp = 15
+if temp >=30 : print('너무 더워요. 나가지 마세요')
+elif 15<= temp <30 : print('아주 좋은 날씨!')
+elif 0< temp <15 : print('외투를 챙기세요')
+else: print('너무 추워요, 나가지 마세요')
