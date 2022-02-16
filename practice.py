@@ -44,6 +44,7 @@ print(round(3.14)) # 반올림
 
 
 
+from encodings import utf_8
 from math import *
 print(floor(4.99))
 print(ceil(4.01))
@@ -374,3 +375,408 @@ if temp >=30 : print('너무 더워요. 나가지 마세요')
 elif 15<= temp <30 : print('아주 좋은 날씨!')
 elif 0< temp <15 : print('외투를 챙기세요')
 else: print('너무 추워요, 나가지 마세요')
+
+
+
+
+
+
+# for
+# for waiting_no in [0,1,2,3,4]:
+# for waiting_no in range(3,9):
+  # print('대기번호 : {0}'.format(waiting_no))
+
+starbucks = ["주현","주주","공주"]
+for customer in starbucks: print("{0}, 커피가 준비되었습니다".format(customer))
+# 와 위에 있는 starbucks와  for의 거리가 벌어지면 안되는구나
+
+
+
+
+# while
+# customer = '토르'
+# index = 5
+# # while(조건)
+# while index >=1:
+#   print('{0}, 커피가 준비 되었습니다. {1} 번 남았어요.' .format(customer, index))
+#   index -=1
+#   if index == 0:
+#     print('커피는 폐기처분되었습니다.')
+
+
+# customer = '아이언맨'
+# index = 1 
+# while False: 
+#    print('{0}, 커피가 준비 되었습니다. 호출 {1} 회' .format(customer, index))
+#    index += 1
+#    if index == 345 :
+#     print('이건 에바지')
+
+# customer = "주현"
+# person = "Unknown"
+
+# while person != customer :
+#   print('{0}, 커피가 준비 되었습니다' .format(customer))
+#   person = input('이름이 어떻게 되세요? ')
+
+
+
+
+
+
+
+  # continue와 break
+
+absent =[2,5] #결석
+no_book = [7]
+for student in range(1,11):
+  if student in absent:
+    continue # 아래 문장 실행 안하고 넘어감
+  elif student in no_book:
+    print('오늘 수업 여기까지. {0} 다음에는 가져와라' .format(student))
+    break # 그 뒤에 있는 것들과는 상관없이 끝내버림
+  print('{0}야, 책 읽어봐' .format(student))
+
+
+
+
+
+# 한 줄 for
+students = [1,2,3,4,5]
+students = [i+100 for i in students]
+print(students)
+
+hero = ['Iron man','Thor','I am groot']
+hero = [len(i) for i in hero]
+print(hero)
+
+hero = ['Iron man','Thor','I am groot']
+hero = [i.upper() for i in hero]
+print(hero)
+
+
+
+
+
+
+#Quiz
+
+# from random import *
+
+# cnt = 0
+# for i in range(1,51):
+#   time = randrange(5,51)
+#   if 5<= time <=15 :
+#     print('[O] {0}번째 손님 (소요시간 : {1}분' .format(i, time))
+#     cnt +=1
+#   else:
+#     print('[] {0}번째 손님 (소요시간 : {1}분' .format(i, time))
+# print('총 탑승 승객 :{0}분' .format(cnt))
+
+
+
+
+
+
+
+
+
+
+
+# 함수
+def open_account():
+  print('새로운 계좌가 생성되었습니다.')
+
+open_account()
+
+
+
+# 전달값과 반환값
+def deposit(balance, money):
+  print('입금이 완료되었습니다. 잔액은 {0}원 입니다' .format(balance + money))
+  return balance + money
+
+# balance = 0
+# balance = deposit(balance, 1000)
+# print(balance)
+
+def withdraw(balance, money):
+  if balance > money :
+    print('출금이 완료되었습니다. 잔액은 {0}원 입니다' .format(balance-money))
+    return balance - money
+  else:
+    print('출금이 완료되지 않았습니다. 잔액은 {0} 원입니다' .format(balance))
+    return balance
+
+balance = 0
+balance = deposit(balance, 1000)
+balance = withdraw(balance, 2000)
+
+
+
+
+# 기본값
+def profile(name, age=17, main_lang ="파이썬"):
+  print('이름 : {0}\t나이 : {1}\t주 사용 언어 : {2}' .format(name, age, main_lang))
+  
+profile('임주현')
+profile('임주현', 25, '파이썬')
+profile('임주현', 23, "js")
+
+
+
+
+
+# 키워드값
+def profile(name, age, main_lang):
+  print(name,age,main_lang)
+
+profile(name='유재석',main_lang="파이썬",age=20)
+
+
+
+
+
+# 가변 인자
+def profile(name,age,lang1,lang2,lang3,lang4,lang5):
+  print('이름: {0}\t나이: {1}\t'.format(name,age),end="")
+  print(lang1,lang2,lang3,lang4,lang5)
+# end=""를 써주면 출력하고 나서 줄바꿈 처리가 되지 않는다
+
+profile('캐슈', 25,"Kotlin", "Swift", "","","")
+
+
+def profile(name,age,*language):
+  print('이름: {0}\t나이: {1}\t'.format(name,age),end="")
+  for lang in language:
+    print(lang, end="")
+  print()
+# 줄바꿈을 막기 위해서 end를 쓰고 마지막 부분에서는 줄바꿈을 위해서 print()로 끝냄
+
+profile('임주현', 25,"Python", "Javascript", "React","Typescript","React-Native","TDD")
+profile('캐슈', 25,"Kotlin", "Swift")
+
+
+
+# 지역변수와 전역변수
+# 지역변수 : 함수 내에서만 쓸 수 있는 것.
+# 전역변수 : 모든 공간에서 쓸 수 있는 것.
+
+gun = 10
+
+def checkpoint(soldiers): #경계근무
+  global gun # 전역 공간에 있는 gun 사용
+  gun=gun-soldiers
+  print('[함수 내] 남은 총 : {0}'.format(gun))
+
+def checkpoint_ret(gun, soldiers):
+  gun=gun - soldiers
+  print('[함수 내] 남은 총 : {0}'.format(gun))
+  return gun # return해줌으로써 바뀐 gun의 값을 외부로 던져줄 수 있음.
+
+
+print('전체 총 : {0}'.format(gun))
+# checkpoint(2) # 2명이 경계 근무 나감
+gun = checkpoint_ret(gun,2)
+print('남은 총 : {0}' .format(gun))
+
+
+
+# Quiz
+
+def std_weight(height, gender):
+  if gender == '남자':
+    G_value = 22
+  elif gender =='여자':
+    G_value = 21
+  value = round(height * height * G_value /10000,2) #반올림 : round
+  print('키 {0}cm {1}의 표준 체중은 {2}kg 입니다.' .format(height, gender, value))
+
+std_weight(170, '여자')
+
+
+
+
+
+
+
+# 표준입출력
+print('Python'+ "Java") # 붙어서 나온다
+print('Python', "Java") # 띄어져서 나온다
+print('Python', "Java", sep=" , ") # seperate(sep)를 이용해서 다양하게 출력할 수 있다
+print('Python', "Java", sep=" vs ") 
+# 함수 두개에 의해서 출력된 문장이 한 줄로 나온다
+# Python,Java?무엇이 더 재밌을까요?
+print('Python', "Java", sep=",", end="?") 
+print('무엇이 더 재밌을까요?')
+# end의 의미 : 끝을 물음표로 바꿔달라
+
+import sys
+print('Python', "Java", file=sys.stdout) # 표준 출력으로 문장이 찍힘
+print('Python', "Java", file=sys.stderr) # 표준 에러로 문장이 찍힘
+
+
+scores = {'수학':0, '영어':50, "코딩":100}
+for subject, score in scores.items(): # key와 value가 페어로 나온다. 쌍으로 튜플로 나옴
+  # print(subject, score) # 정렬이 안되어서 나옴
+
+  # 수학이라는 글자가 있으면 8개의 공간을 만들고 왼쪽 정렬을 해라
+  # score는 4칸을 확보하고 오른쪽 정렬해라
+  print(subject.ljust(8), str(score).rjust(4), sep=":") 
+
+
+# 은행 대기순번표 001
+# 0으로 채우기 : zfill
+for num in range(1,21):
+  print('대기번호 : ' + str(num).zfill(3))
+
+
+
+# answer = input('아무 값이나 입력하세요 : ')
+# print('입력하신 값은 {0} 입니다' .format(answer))
+
+
+
+
+
+
+
+
+
+# 다양한 출력포멧
+
+
+# 빈 자리는 빈공간으로 두고, 오른쪽 정렬을 하되, 총 10자리 공간을 확보
+print('{0: > 10}' .format(500))
+# => 0:   // 0(빈 자리)는 빈 공간으로 두고
+# => > 오른쪽 정렬을 하되
+# => 10 : 총 10자리 공간을 확보
+
+# 양수일 땐 +로, 음수일 땐 -로 표시
+print('{0: >+10}' .format(500)) 
+print('{0: >-10}' .format(-500)) 
+# 첫 문장에서도 -500을 찍으면 자동으로 -가 찍히기는 하지만 양수일 때는 + 없이 그냥 찍힌다
+
+# 왼쪽 정렬하고, 빈칸을 _로 채움
+print("{0:_<+10}".format(500))
+
+# 3자리마다 콤마를 찍어주기
+print('{0:,}' .format(10000000000))
+
+# 3자리마다 콤마를 찍어주기 + 부호
+print('{0:+,}' .format(10000000000))
+print('{0:-,}' .format(-10000000000))
+
+# 3자리마다 콤마를 찍어주기 + 부호 + 자릿수 확보 + 돈이 많으면 행복하니까 빈 자리는 ^
+print('{0:^<+30,}' .format(1000000000000))
+
+# 소수점 출력
+print("{0:f}" .format(5/3))
+# 소수점 특정 자리수까지만 표시
+print("{0:.2f}" .format(5/3))
+# => 소수점 3째자리에서 반올림
+
+
+
+
+
+
+# 파일 입출력
+score_file = open('score.txt','w',encoding="utf8")
+print('수학: 0', file=score_file)
+print('영어: 50', file=score_file)
+score_file.close()
+
+# w(wirte)를 이용할 경우 덮어쓰기가 된다
+# 이어서 쓰고 싶으면 a(append)를 쓰면 된다
+score_file = open('score.txt','a',encoding='utf8')
+score_file.write('과학: 80')
+score_file.write('\n코딩: 100')
+score_file.close()
+# print로 쓸 때는 줄바꿈이 자동으로 처리됐는데
+# write로 쓸 때는 줄바꿈이 되지 않는다 그래서 줄바꿈을 위한 \n을 이용
+
+# 파일 내용 읽어오기 r(read)
+score_file = open('score.txt','r', encoding="utf_8")
+print(score_file.read())
+score_file.close()
+
+# 파일 내용 한 줄 씩만 읽어오기
+score_file = open('score.txt','r', encoding="utf_8")
+print(score_file.readline(), end="") # 줄 별로 읽기. 한 줄 읽고 커서는 다음 줄로 이동
+print(score_file.readline(), end="") 
+print(score_file.readline(), end="") 
+score_file.close()
+
+
+# 몇 줄인지 모를 때 내용 가져오기
+
+# 1
+score_file = open('score.txt','r', encoding="utf_8")
+while True:
+  line=score_file.readline()
+  if not line:
+    break
+  print(line)
+score_file.close()
+
+# 2
+score_file = open('score.txt','r', encoding="utf_8")
+lines = score_file.readlines() # list 형태로 저장
+for line in lines:
+  print(line)
+score_file.close()
+
+
+
+
+
+
+# pickle
+# 프로그램 상에서 사용하는 데이터를 파일 형태로 저장하는 것
+
+import pickle
+profile_file = open('profile.pickle','wb') # 쓰기 목적의 w와 바이너리 타입의 b
+# pickle에서는 따로 인코딩을 설정해줄 필요가 없다
+profile= {'이름':'임주현', '나이': 25, '취미':['코딩', '쇼핑','카페']}
+print(profile)
+pickle.dump(profile,profile_file) # profile에 있는 정보를 file에 저장한다.
+profile_file.close()
+
+# pickle에서 가져오기
+profile_file = open('profile.pickle', 'rb')
+profile = pickle.load(profile_file) # file에 있는 정보를 profile에 불러오기
+print(profile)
+profile_file.close()
+
+
+
+
+
+
+
+# with
+import pickle
+
+# with와 pickle
+with open('profile.pickle', 'rb') as profile_file:
+  print(pickle.load(profile_file))
+# with라는 글자를 쓰고 파일을 연다. 이 파일 정보를 profile_file이라는 변수에 저장.
+# 그리고 나서 pickle.load(profile_file)을 통해서 파일을 읽을 수 있다
+# => 따로 close라는걸 나타낼 필요 없이 with가 알아서 해준다
+
+# with와 txt
+with open('study.txt','w', encoding="utf8") as study_file:
+  study_file.write('파이썬을 열심히 공부하고 있어요')
+
+# with로 파일 불러오기
+with open('study.txt', 'r', encoding="utf8") as study_file:
+  print(study_file.read())
+
+
+
+
+  #Quiz
+  # for week in range(1,51):
+  #   with open(str(week)+'주차.txt', 'w', encoding="utf8") as report_file:
+  #     report_file.write('- {0} 주차 주간보고 - \n부서 : \n이름 : \n업무 요약 : ' .format(week))
