@@ -780,3 +780,251 @@ with open('study.txt', 'r', encoding="utf8") as study_file:
   # for week in range(1,51):
   #   with open(str(week)+'주차.txt', 'w', encoding="utf8") as report_file:
   #     report_file.write('- {0} 주차 주간보고 - \n부서 : \n이름 : \n업무 요약 : ' .format(week))
+
+
+
+
+
+
+
+
+
+#클래스
+
+# name = "마린"
+# hp = 40
+# damage = 5
+
+# print("{0} 유닛이 생성되었습니다." .format(name))
+# print("체력 {0} 공격력 {1}\n" .format(hp, damage))
+
+
+# tank_name = "탱크"
+# tank_hp = 150
+# tank_damage = 35
+
+# print("{0} 유닛이 생성되었습니다." .format(tank_name))
+# print("체력 {0} 공격력 {1}\n" .format(tank_hp, tank_damage))
+
+# tank2_name = "탱크"
+# tank2_hp = 150
+# tank2_damage = 35
+
+# print("{0} 유닛이 생성되었습니다." .format(tank2_name))
+# print("체력 {0} 공격력 {1}\n" .format(tank2_hp, tank_damage))
+
+# def attack(name, location, damage):
+#   print("{0} : {1} 방향으로 적군을 공격 합니다. [공격력 {2}]" .format(name, location, damage))
+
+# attack(name, "1시", damage)
+# attack(tank_name, "1시", tank_damage)
+# attack(tank_name, "1시", tank2_damage)
+
+# 이렇게 두세개씩 써야하는 것은 너무 불편하다 => class사용
+
+# 위에있는 주석을 class로 다시 만들기
+
+class Unit:
+  def __init__(self,name,hp,speed):
+    self.name = name
+    self.hp = hp
+    self.speed=speed
+    print('{0} 유닛이 생성되었습니다' .format(name))
+
+  def move(self, location):
+    print("[지상 유닛 이동")
+    print("{0} : {1} 방향으로 이동합니다. [속도 {2}]"\
+      .format(self.name,location,self.speed))
+
+  def damaged(self,damage):
+    print("{0} : {1} 데미지를 잃었습니다." .format(self.name, damage))
+    self.hp -=damage
+    print('{0} : 현재 체력은 {1} 입니다.' .format(self.name, self.hp))
+    if self.hp <= 0:
+      print("{0} : 파괴되었습니다" .format(self.name))
+
+# marine1 = Unit('마린',40,5)
+# marine2 = Unit('마린',40,5)
+# tank = Unit('탱크',150,35)
+
+
+
+
+# __init__
+# 파이썬에서 쓰이는 생성자
+# 마린이나 탱크같이 클래스로부터 만들어지는 애들을 객체라고 한다
+# 이 때 '마린'과 '탱크' 는 Unit class의 instance라고 표현한다
+
+
+
+
+
+# 멤버 변수
+# class안에 있는 self.어쩌고 이걸 멤버 변수라고 한다
+# class 내에서 정의된 변수고 이걸 이용해 사용할 수 있다
+
+# wraith1 = Unit('레이스',80,5)
+# print('유닛 이름 : {0}, 공격력 : {1}' .format(wraith1.name, wraith1.damage))
+
+
+# wraith2 = Unit('빼앗은 레이스',80,5)
+# wraith2.clocking = True
+
+# 외부에서 변수를 추가로 할당하여 True라는 값을 집어넣음
+# if wraith2.clocking ==True:
+#   print('{0}은 현재 클로킹 상태입니다' .format(wraith2.name))
+
+
+
+
+
+
+
+# 메소드
+class AttackUnit(Unit):
+  def __init__(self, name, hp,speed, damage):
+    Unit.__init__(self,name,hp,speed)
+    self.damage=damage
+
+  def attack(self, location):
+    print("{0} : {1} 방향으로 적군을 공격 합니다. [공격력 {2}]"\
+      .format(self.name, location, self.damage))
+
+
+
+
+class Marine(AttackUnit):
+  def __init__(self):
+    AttackUnit.__init__(self, "마린",40,1,5)
+  
+  def stimpack(self):
+    if self.hp>10:
+      self.hp -=10
+      print('{0} : 스팀팩을 사용합니다. (HP 10 감소)' .format(self.name))
+    else:
+      print('{0} : 체력이 부족하여 스팀팩을 사용하지 않습니다. '.format(self.name))
+
+
+
+  class Tank(AttackUnit):
+    seize_developed = False
+
+    def __init__(self):
+      AttackUnit.__init__(self, '탱크', 150, 1, 35)
+      self.seize_mode  = False
+
+    def set_seize_mode(self):
+      if Tank.seize_developed ==False:
+        return
+
+      if self.seize_mode == False:
+        print("{0} : 시즈모드로 전환합니다." .format(self.name))
+        self.damage *=2
+        self.seize_mode = True
+      else:
+        print("{0} : 시즈모드를 해제합니다." .format(self.name))
+        self.damage /=2
+        self.seize_mode = False
+
+
+
+
+
+
+# 상속
+# class AttackUnit(Unit):
+#   def __init__(self, name, hp, damage):
+#     Unit.__init__(self,name,hp)
+#     self.damage=damage
+
+
+
+
+# 다중 상속
+class Flyable:
+  def __init__(self,flying_speed):
+    self.flying_speed = flying_speed
+
+  def fly(self, name, location):
+    print("{0} : {1} 방향으로 날아갑니다. [속도 {2}]" .format(name,location, self.flying_speed))
+
+
+class FlyableAttackUnit(AttackUnit, Flyable):
+  def __init__(self, name, hp, damage, flying_speed):
+    AttackUnit.__init__(self, name, hp,0, damage)
+    Flyable.__init__(self, flying_speed)
+
+  def move(self, location):
+    print('[공중 유닛 이동')
+    self.fly(self.name, location)
+
+
+valkyrie = FlyableAttackUnit('발키리', 200, 6, 5)
+valkyrie.fly(valkyrie.name,'3시')
+
+class Wraith(FlyableAttackUnit):
+  def __init__(self):
+    FlyableAttackUnit.__init__('레이스',80,20,5)
+    self.clocked = False
+
+  def clocking(self):
+    if self.clocked ==True:
+      print('{0} : 클로킹 모드 해제합니다' .format(self.name))
+      self.clocked = False
+    else:
+      print('{0} : 클로킹 모드 설정합니다' .format(self.name))
+      self.clocked = True
+
+
+
+
+
+# 메소드 오버라이딩
+vulture =AttackUnit('벌쳐',80,10,20)
+battlecruiser = FlyableAttackUnit('배틀크루저',500,25,3)
+
+# vulture.move("11시")
+# battlecruiser.fly(battlecruiser.name,'9시')
+# 그런데 이렇게 move나 fly를 찾아서 작성해주는게 너무 귀찮다
+# 그럴 때 이용하는 것이 메소드 오버라이딩
+
+vulture.move("11시")
+battlecruiser.move('9시')
+# 똑같은 move함수인데 FlyableAttackUnit에서 move를 재정의해서 이걸로 쓸 수 있음
+
+
+
+
+
+# pass
+class BuildingUnit(Unit):
+  def __init__(self,name,hp,location):
+    pass # 의미 아무것도 안하고 그냥 이 함수를 완성된 것 처럼 보이게하기.
+
+
+supply_depot = BuildingUnit('서플라이 디폿',500, '7시')
+
+
+
+
+# super
+# 1. 이렇게 쓸 수도 있고
+# class SuperBuildingUnit(Unit):
+#   def __init__(self, name, hp, location):
+#     Unit.__init__(self, name,hp,0)
+#     self.location = location
+
+# 2. super을 사용할 수도 있다
+class SuperBuildingUnit(Unit):
+  def __init__(self, name, hp, location):
+    # Unit.__init__(self, name,hp,0)
+    super().__init__(name,hp,0) # super을 통해 초기화 할 때는 self는 보내면 안된다
+    self.location = location
+
+
+    # root : practice_class.py
+
+
+
+
+
