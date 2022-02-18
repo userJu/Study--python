@@ -911,10 +911,10 @@ class Marine(AttackUnit):
 
     def __init__(self):
       AttackUnit.__init__(self, '탱크', 150, 1, 35)
-      self.seize_mode  = False
+      Tank.seize_mode  = False
 
     def set_seize_mode(self):
-      if Tank.seize_developed ==False:
+      if self.seize_developed ==False:
         return
 
       if self.seize_mode == False:
@@ -955,7 +955,7 @@ class FlyableAttackUnit(AttackUnit, Flyable):
     Flyable.__init__(self, flying_speed)
 
   def move(self, location):
-    print('[공중 유닛 이동')
+    print('[공중 유닛 이동]')
     self.fly(self.name, location)
 
 
@@ -1027,4 +1027,164 @@ class SuperBuildingUnit(Unit):
 
 
 
+# class House:
+#   def __init__(self,location,house_type, deal_type, price, completion_year):
+#     self.location = location
+#     self.house_type = house_type
+#     self.deal_type = deal_type
+#     self.price = price
+#     self.completion_year = completion_year
+
+
+#   def show_detail(self, count):
+#     print('총 {0}대의 매물이 있습니다' .format(count))
+#     print('{0} {1} {2} {3}억 {4}년' \
+#       .format(self.location,self.house_type,self.deal_type,self.price,self.completion_year))
+
+
+# h=[]
+# h1 = House('강남','아파트','매매','10', '2010')
+# h2 = House('마포','오피스텔','전세','5', '2007')
+# h3 = House('송파','빌라','월세','500/50', '2000')
+
+# h.append(h1)
+# h.append(h2)
+# h.append(h3)
+
+
+# for pickedHouse in h:
+#   pickedHouse.show_detail(len(h))
+
+
+
+
+
+
+# 예외처리 try와 except
+
+# try:
+#   print('나누기 전용 계산기입니다')
+#   num1 = int(input('첫 번째 숫자를 입력하세요 : ')) # 여기서 3을 적으면 바로 종료되어버린다
+#   num2 = int(input('두 번째 숫자를 입력하세요 : '))
+#   print('{0} / {1} = {2}' .format(num1, num2, int(num1/num2)))
+# except ValueError:
+#   print('에러! 잘못된 값을 입력하였습니다')
+# except ZeroDivisionError as err:
+#   print(err)
+# # value와 zerodivision처럼 명확한 경과가 아닌 에러는 이렇게 모아서 에러를 전달할 수 있음
+# except:
+#   print('알 수 없는 에러가 발생하였습니다')
+#   print(err)
+
+
+
+
+
+
+
+
+# 에러 발생시키기
+
+# 사용자 정의 예외처리
+# value나 zero에러는 파이썬에서 제공하는 에러고
+# 우리가 에러를 정의할 수도 있다
+
+class BigNumberError(Exception):
+  def __init__(self, msg):
+    self.msg = msg
+
+  def __str__(self):
+    return self.msg
+
+
+# try:
+#   print('한 자리 숫자 나누기 전용 계산기.')
+#   num1 = int(input('첫 번째 숫자를 입력하세요 : '))
+#   num2 = int(input('두 번째 숫자를 입력하세요 : '))
+#   if num1 > 10 or num2 >10:
+#     # raise ValueError # if를 통해 의도적으로 ValueError 발생 상황을 가정한다.
+#     raise BigNumberError('입력값 : {0}, {1}' .format(num1,num2))
+#   print('{0} / {1} = {2}' .format(num1, num2, int(num1/num2)))
+# # except ValueError:
+# #   print('잘못된 값을 입력하였습니다. 한 자리 숫자만 입력하세요')
+# except BigNumberError as err:
+#   print('에러가 발생하였습니다. 한 자리 숫자만 입력하세요')
+#   print(err)
+# # finally
+# # 예외처리 구문에서 정상적 / 오류 뭐든 끝나고 나서 실행되는 구문
+# finally:
+#   print('계산기를 이용해 주셔서 감사합니다')
+
+
+
+
+# # Quiz
+
+# class SoldoutError(Exception): #Exception 넣어줘야한다
+#   pass
+
+
+# chicken = 10
+# waiting = 1
+
+# while(True):
+
+#   try:
+#     print('[남은 치킨 : {0}]' .format(chicken))
+#     order = int(input('몇 마리 주문하시겠어요?'))
+#     if order > chicken :
+#         print('재료가 부족합니다.')
+#     elif order <=0:
+#       raise ValueError
+#     else:
+#       print('[대기번호 {0}] {1} 마리 주문이 완료되었습니다.'\
+#       .format(waiting, order))
+      
+#       waiting += 1
+#       chicken -= order  
+#     if chicken == 0:
+#       raise SoldoutError
+#   except ValueError:
+#     print('잘못된 값을 입력하였습니다.')
+#   except SoldoutError:
+#     print('재고가 소진되어 더 이상 주문을 받지 않습니다.')
+#     break
+
+      
+  
+
+
+
+# 모듈
+# 모듈을 쓰려는 파일과 같은 경로에 있거나 파이썬 라이브러리들이 몰려있는 폴더에 있어야 한다
+import theater_module
+
+theater_module.price(3)
+theater_module.price_morning(4)
+theater_module.price_soilder(5)
+
+
+# 이렇게도 사용할 수 있고 as 사용도 가능
+
+import theater_module as mv
+
+mv.price(3)
+mv.price_morning(4)
+mv.price_soilder(5)
+
+
+from theater_module import *
+# == from random import *와 같다
+# theater_module 필요 없이 그 안에 들어있는 모든 것을 사용하겠다는 의미 
+
+price(3)
+price_morning(4)
+price_soilder(5)
+
+
+from theater_module import price, price_morning
+# 처럼 내가 필요한 함수만 가져다 쓸 수도 있다
+
+from theater_module import price_soilder as price
+# 이렇게 as를 쓰는 것도 가능
 
