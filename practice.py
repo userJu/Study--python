@@ -1188,3 +1188,107 @@ from theater_module import price, price_morning
 from theater_module import price_soilder as price
 # 이렇게 as를 쓰는 것도 가능
 
+
+
+
+
+
+# 패키지 :모듈들을 모아놓은 집합 (travel)
+import travel.thailand # import로 가져올 때는 모듈 / 패키지만 가능. class나 함수는import로 가져올 수 없다
+# from import는 가능
+# from travel.thailand import ThailandPackage
+# trip_to = travel.thailand.ThailandPackage()
+trip_to = travel.thailand.ThailandPackage()
+trip_to.detail()
+
+from travel import vietnam
+trip_to = vietnam.VietnamPackage()
+trip_to.detail()
+
+
+# __all__
+from travel import *
+# trip_to = travel.thailand.ThailandPackage() => 오류가 발생
+# 이유 : *을 쓴다는 것은 travel에 있는 모든 것을 가져오는 건데
+# 실제로는 개발자가 그 * 안에서 범위를 설정해야 한다.
+# import하고싶은건 공개, 아닌 것은 비공개로
+# __init__ 에 적어주는 것들만 가져다가 공개로 사용할 수 있다
+
+trip_to = travel.thailand.ThailandPackage()
+trip_to.detail()
+
+
+
+# 패키지, 모듈 위치
+# 어느 위치에 있는지 확인하기 
+import inspect
+import random
+print(inspect.getfile(random)) # => C:\Python310\lib\random.py
+print(inspect.getfile(thailand)) # => c:\Users\ME\coding\coding test\python-basic\travel\thailand.py
+
+
+
+
+
+# pip install => pip로 package 설치하기
+# 파이썬은 잘 만들어진 패키지를 가져다 쓰는 것도 중요하다
+# pypi에서 잘 가져다 씀
+
+from bs4 import BeautifulSoup
+soup = BeautifulSoup("<p>Some<b>bad<i>HTML")
+print(soup.prettify())
+
+
+
+# 내장 함수
+# input : 사용자 입력을 받는 함수
+# language = input('무슨 언어를 좋아하세요?')
+# print('{0}은 아주 좋은 언어입니다!' .format(language))
+
+# dir : 어떤 객체를 넘겨줬을 때 그 객체가 어떤 변수와 함수를 가지고 있는지 표시
+import random # 외장 함수
+print(dir(random)) # random의 모듈 내에서 쓸 수 있는 함수가 나온다
+print(dir()) # 은 그냥 쓸 수 있는걸 나타냄
+
+lst = [1,2,3]
+print(dir(lst)) # list에서 쓸 수 있는 내용이 나온다
+
+# 그냥 사용할 수 있는 함수들 모음으로 생각하면 될 듯
+
+
+# 외장 함수
+# import를 해서 사용해야 한다 
+# python module index에서 외장 함수들을 볼 수 있다
+# glob : 경로 내의 폴더 / 파일 목록 조회 (윈도우 dir)
+import glob
+print(glob.glob('*.py')) # 확장자가 py인 모든 파일 
+
+# os : 운영체제에서 제공하는 기본 기능 정도.
+import os
+print(os.getcwd()) # 현재 디렉토리 표시해라
+
+folder = 'sample_dir'
+if os.path.exists(folder):
+  print('이미 존재하는 폴더입니다')
+  os.rmdir(folder)
+  print(folder, '폴더를 삭제하였습니다.')
+else:
+  os.makedirs(folder) # 폴더 생성
+  print(folder, '폴더를 생성하였습니다.')
+
+# time : 시간 관련 함수
+import time
+print(time.localtime())
+print(time.strftime('%Y-%m-%d %H:%M:%S'))
+
+import datetime
+print('오늘 날짜는 ', datetime.date.today())
+
+#timedelta : 두 날짜 사이의 간격
+today = datetime.date.today() # 오늘 날짜 저장
+td = datetime.timedelta(days=100)
+print('우리가 만난지 100일은', today + td)
+
+
+
+# Quiz
